@@ -4,7 +4,7 @@ Proyecto de análisis de datos que busca una hipótesis sobre el aumento de la t
 
 ![](/images/uruguay-suicidio-afdatauy.png "Epidemia de suicidio en Uruguay")
 
-📢 No en Español? Aquí en [Inglés](README.md "Translated version of this document, called Readme.md. The 'original' readme file.").
+📢 No en Español? Aquí en [Inglés](../README.md "Translated version of this document, called Readme.md. The 'original' readme file.").
 
 ![](/images/icons8-proyecto-r-48.png "Lenguaje R")   ![](/images/icons8-python-48.png "Lenguaje Python")![](/images/icons8-sql-48.png "Lenguaje SQL")
 
