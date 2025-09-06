@@ -1,0 +1,470 @@
+---
+title: "Análisis de la Relación entre Suicidio Masculino Adulto y Factores Económicos en Uruguay"
+subtitle: "Un Estudio Exploratorio de Datos Longitudinales"
+author: 
+  - "Tu Nombre"
+  - "Afiliación Institucional"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    fig_caption: true
+    keep_tex: false
+    includes:
+      in_header: 
+        - \usepackage{float}
+        - \usepackage{booktabs}
+        - \usepackage{longtable}
+        - \usepackage{array}
+        - \usepackage{multirow}
+        - \usepackage{wrapfig}
+        - \usepackage{colortbl}
+        - \usepackage{pdflscape}
+        - \usepackage{tabu}
+        - \usepackage{threeparttable}
+        - \usepackage{threeparttablex}
+        - \usepackage[normalem]{ulem}
+        - \usepackage{makecell}
+        - \usepackage{xcolor}
+bibliography: referencias.bib
+csl: apa-style.csl
+lang: es-ES
+fontsize: 11pt
+geometry: margin=1in
+header-includes:
+  - \usepackage[spanish]{babel}
+  - \usepackage{setspace}
+  - \onehalfspacing
+---
+
+```{r setup, include=FALSE}
+# Configuración global de chunks
+knitr::opts_chunk$set(
+  echo = FALSE,           # No mostrar código por defecto
+  warning = FALSE,        # No mostrar warnings
+  message = FALSE,        # No mostrar mensajes
+  fig.align = "center",   # Centrar figuras
+  fig.pos = "H",          # Posición fija de figuras
+  fig.width = 8,          # Ancho de figuras
+  fig.height = 6,         # Alto de figuras
+  dpi = 300,              # Resolución de figuras
+  cache = TRUE            # Cache de chunks para compilación rápida
+)
+
+# Configuración de opciones globales
+options(
+  knitr.table.format = "latex",
+  scipen = 999,           # Evitar notación científica
+  digits = 3              # Número de decimales
+)
+```
+
+```{r librerias, include=FALSE}
+# Cargar librerías necesarias
+library(tidyverse)      # Manipulación y visualización de datos
+library(lubridate)      # Manejo de fechas
+library(knitr)          # Para tablas
+library(kableExtra)     # Para tablas avanzadas
+library(ggplot2)        # Visualización
+library(gridExtra)      # Arreglo de gráficos
+library(corrplot)       # Matrices de correlación
+library(psych)          # Análisis psicométrico
+library(forecast)       # Series temporales
+library(tseries)        # Análisis de series temporales
+library(bcp)            # Detección de cambios estructurales
+library(changepoint)    # Análisis de puntos de cambio
+library(readxl)         # Lectura de archivos Excel
+library(janitor)        # Limpieza de datos
+library(scales)         # Formateo de escalas en gráficos
+library(viridis)        # Paletas de colores
+library(patchwork)      # Combinación de gráficos ggplot
+library(broom)          # Resultados de modelos en formato tidy
+library(car)            # Análisis de regresión
+library(lmtest)         # Tests para modelos lineales
+library(sandwich)       # Errores estándar robustos
+```
+
+\newpage
+
+# Resumen Ejecutivo
+
+*[Espacio para resumen de 250-300 palabras que incluya objetivos, metodología principal, hallazgos clave y conclusiones]*
+
+**Palabras clave:** suicidio, economía, Uruguay, salud mental, análisis longitudinal
+
+\newpage
+
+# Introducción
+
+## Contexto y Justificación
+
+Uruguay presenta una de las tasas de suicidio más altas de América Latina, con una tendencia particularmente preocupante entre la población masculina adulta. Este fenómeno complejo requiere un análisis multidisciplinario que considere factores socioeconómicos, culturales y estructurales.
+
+## Problema de Investigación
+
+*[Describir el problema específico que se aborda]*
+
+## Objetivos
+
+### Objetivo General
+Analizar la potencial relación entre el incremento de suicidios en hombres adultos y los indicadores económicos en Uruguay durante el período [YYYY-YYYY].
+
+### Objetivos Específicos
+1. Caracterizar la evolución temporal de las tasas de suicidio masculino adulto en Uruguay
+2. Identificar patrones y tendencias en los principales indicadores económicos del país
+3. Evaluar la correlación entre variables económicas y tasas de suicidio
+4. Desarrollar modelos predictivos preliminares
+5. Identificar períodos críticos y factores de riesgo asociados
+
+## Hipótesis de Trabajo
+
+*[Formular hipótesis específicas basadas en la literatura]*
+
+\newpage
+
+# Marco Teórico y Antecedentes
+
+## Suicidio desde la Perspectiva Epidemiológica
+
+*[Revisión de literatura sobre epidemiología del suicidio]*
+
+## Factores Socioeconómicos y Suicidio
+
+*[Marco teórico sobre la relación economía-suicidio]*
+
+## Contexto Uruguayo
+
+*[Antecedentes específicos de Uruguay]*
+
+## Estudios Previos
+
+*[Revisión de investigaciones similares]*
+
+\newpage
+
+# Metodología
+
+## Diseño del Estudio
+Estudio observacional, descriptivo y analítico de tipo ecológico con diseño longitudinal.
+
+## Fuentes de Datos
+
+### Datos de Mortalidad por Suicidio
+- **Fuente:** Ministerio de Salud Pública (MSP) - Sistema de Información Nacional en Salud (SNIS)
+- **Período:** [Especificar años]
+- **Variables:** Edad, sexo, método, departamento, fecha
+
+### Datos Económicos
+- **Fuente:** Banco Central del Uruguay (BCU), Instituto Nacional de Estadística (INE)
+- **Indicadores:** PIB, desempleo, inflación, salario real, índice de pobreza
+- **Período:** [Especificar años]
+
+## Población de Estudio
+Hombres adultos (18-64 años) residentes en Uruguay.
+
+## Variables de Análisis
+
+```{r variables-tabla, echo=FALSE}
+# Crear tabla de variables (ejemplo)
+variables_df <- data.frame(
+  Variable = c("Tasa de suicidio", "PIB per cápita", "Tasa de desempleo", 
+               "Índice de precios", "Salario real promedio"),
+  Tipo = c("Dependiente", "Independiente", "Independiente", 
+           "Independiente", "Independiente"),
+  Unidad = c("Por 100,000 hab", "USD corrientes", "Porcentaje", 
+             "Índice base 100", "Pesos uruguayos"),
+  Fuente = c("MSP", "BCU", "INE", "INE", "INE")
+)
+
+kable(variables_df, 
+      caption = "Variables principales del estudio",
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
+```
+
+## Análisis Estadístico
+
+### Análisis Descriptivo
+- Estadísticas descriptivas univariadas
+- Análisis de tendencias temporales
+- Visualización de series temporales
+
+### Análisis Inferencial
+- Análisis de correlación
+- Modelos de regresión lineal múltiple
+- Análisis de series temporales (ARIMA)
+- Detección de puntos de cambio estructural
+- Tests de causalidad de Granger
+
+### Software Utilizado
+Análisis realizados en R versión `r R.Version()$version.string`.
+
+\newpage
+
+# Análisis Exploratorio de Datos
+
+```{r carga-datos, include=FALSE}
+# Ejemplo de carga de datos (adaptar según fuentes reales)
+# suicidios <- read_excel("datos/suicidios_uruguay.xlsx")
+# economia <- read_excel("datos/indicadores_economicos.xlsx")
+
+# Por ahora, crear datos de ejemplo para la plantilla
+set.seed(123)
+años <- 2000:2022
+n_años <- length(años)
+
+# Datos simulados de ejemplo
+datos_ejemplo <- data.frame(
+  año = años,
+  tasa_suicidio = 15 + 2 * sin(1:n_años * 0.3) + rnorm(n_años, 0, 1),
+  pib_per_capita = 8000 + 500 * (1:n_años) + rnorm(n_años, 0, 200),
+  desempleo = 8 + 3 * sin(1:n_años * 0.4) + rnorm(n_años, 0, 0.5),
+  inflacion = 5 + 4 * sin(1:n_años * 0.2) + rnorm(n_años, 0, 1)
+)
+```
+
+## Características de los Datos
+
+```{r resumen-descriptivo}
+# Estadísticas descriptivas
+datos_resumen <- datos_ejemplo %>%
+  select(-año) %>%
+  psych::describe() %>%
+  as.data.frame() %>%
+  select(n, mean, sd, min, max)
+
+kable(datos_resumen, 
+      digits = 2,
+      caption = "Estadísticas descriptivas de variables principales",
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
+```
+
+## Evolución Temporal
+
+```{r grafico-series-temporales, fig.cap="Evolución temporal de variables principales"}
+# Crear gráficos de series temporales
+p1 <- ggplot(datos_ejemplo, aes(x = año, y = tasa_suicidio)) +
+  geom_line(color = "darkred", size = 1) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  labs(title = "Tasa de Suicidio Masculino",
+       y = "Tasa por 100,000 hab",
+       x = "Año") +
+  theme_minimal()
+
+p2 <- ggplot(datos_ejemplo, aes(x = año, y = pib_per_capita)) +
+  geom_line(color = "darkblue", size = 1) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  labs(title = "PIB per cápita",
+       y = "USD",
+       x = "Año") +
+  theme_minimal()
+
+p3 <- ggplot(datos_ejemplo, aes(x = año, y = desempleo)) +
+  geom_line(color = "darkorange", size = 1) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  labs(title = "Tasa de Desempleo",
+       y = "Porcentaje",
+       x = "Año") +
+  theme_minimal()
+
+p4 <- ggplot(datos_ejemplo, aes(x = año, y = inflacion)) +
+  geom_line(color = "darkgreen", size = 1) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.3) +
+  labs(title = "Inflación",
+       y = "Porcentaje",
+       x = "Año") +
+  theme_minimal()
+
+# Combinar gráficos
+(p1 + p2) / (p3 + p4)
+```
+
+\newpage
+
+# Análisis de Correlaciones
+
+```{r matriz-correlacion, fig.cap="Matriz de correlaciones entre variables"}
+# Matriz de correlaciones
+cor_matrix <- cor(datos_ejemplo[, -1], use = "complete.obs")
+
+# Visualización
+corrplot(cor_matrix, 
+         method = "color",
+         type = "upper",
+         order = "hclust",
+         tl.cex = 0.8,
+         tl.col = "black",
+         addCoef.col = "black",
+         number.cex = 0.7)
+```
+
+```{r tabla-correlaciones}
+# Tabla de correlaciones con significancia
+cor_test_results <- cor.test(datos_ejemplo$tasa_suicidio, datos_ejemplo$desempleo)
+
+# Crear tabla de correlaciones principales
+correlaciones <- data.frame(
+  Variable = c("PIB per cápita", "Desempleo", "Inflación"),
+  Correlacion = c(
+    cor(datos_ejemplo$tasa_suicidio, datos_ejemplo$pib_per_capita),
+    cor(datos_ejemplo$tasa_suicidio, datos_ejemplo$desempleo),
+    cor(datos_ejemplo$tasa_suicidio, datos_ejemplo$inflacion)
+  )
+)
+
+kable(correlaciones,
+      digits = 3,
+      caption = "Correlaciones con tasa de suicidio masculino",
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
+```
+
+\newpage
+
+# Modelos Estadísticos
+
+## Modelo de Regresión Lineal Múltiple
+
+```{r modelo-regresion}
+# Ajustar modelo de regresión
+modelo1 <- lm(tasa_suicidio ~ pib_per_capita + desempleo + inflacion, 
+              data = datos_ejemplo)
+
+# Mostrar resultados
+modelo1_tidy <- broom::tidy(modelo1)
+kable(modelo1_tidy,
+      digits = 4,
+      caption = "Resultados del modelo de regresión lineal múltiple",
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
+```
+
+## Diagnósticos del Modelo
+
+```{r diagnosticos-modelo, fig.cap="Diagnósticos del modelo de regresión"}
+# Gráficos de diagnóstico
+par(mfrow = c(2, 2))
+plot(modelo1)
+```
+
+## Análisis de Series Temporales
+
+```{r analisis-series}
+# Convertir a serie temporal
+ts_suicidio <- ts(datos_ejemplo$tasa_suicidio, start = 2000, frequency = 1)
+
+# Análisis básico de la serie
+# decomposition <- decompose(ts_suicidio)
+# plot(decomposition)
+
+# Test de estacionariedad
+adf_test <- tseries::adf.test(ts_suicidio)
+print(paste("ADF Test p-value:", round(adf_test$p.value, 4)))
+```
+
+\newpage
+
+# Análisis de Puntos de Cambio
+
+```{r puntos-cambio, fig.cap="Análisis de puntos de cambio estructural"}
+# Análisis de puntos de cambio (ejemplo básico)
+# Esto requiere ajustes según los datos reales
+ts_data <- ts(datos_ejemplo$tasa_suicidio, start = 2000)
+plot(ts_data, main = "Serie temporal de tasa de suicidio",
+     xlab = "Año", ylab = "Tasa por 100,000 hab")
+```
+
+\newpage
+
+# Resultados Principales
+
+## Hallazgos Descriptivos
+
+*[Describir los principales hallazgos descriptivos]*
+
+## Relaciones Identificadas
+
+*[Describir las correlaciones y relaciones encontradas]*
+
+## Modelos Predictivos
+
+*[Describir los resultados de los modelos estadísticos]*
+
+## Períodos Críticos
+
+*[Identificar períodos de mayor riesgo o cambios estructurales]*
+
+\newpage
+
+# Discusión
+
+## Interpretación de Resultados
+
+*[Interpretar los hallazgos en el contexto teórico]*
+
+## Comparación con Literatura Previa
+
+*[Comparar con estudios similares]*
+
+## Implicaciones para Políticas Públicas
+
+*[Discutir implicaciones prácticas]*
+
+## Limitaciones del Estudio
+
+*[Reconocer limitaciones metodológicas y de datos]*
+
+## Fortalezas del Estudio
+
+*[Destacar fortalezas metodológicas]*
+
+\newpage
+
+# Conclusiones
+
+## Conclusiones Principales
+
+*[Resumir hallazgos principales]*
+
+## Recomendaciones
+
+*[Proponer recomendaciones basadas en evidencia]*
+
+## Líneas Futuras de Investigación
+
+*[Sugerir investigaciones futuras]*
+
+\newpage
+
+# Referencias Bibliográficas
+
+*[Las referencias se generarán automáticamente desde el archivo .bib]*
+
+\newpage
+
+# Anexos
+
+## Anexo A: Código R Utilizado
+
+```{r codigo-completo, eval=FALSE, echo=TRUE}
+# Todo el código utilizado en el análisis
+# (Se puede incluir o referenciar scripts separados)
+```
+
+## Anexo B: Tablas Complementarias
+
+*[Tablas adicionales de resultados]*
+
+## Anexo C: Gráficos Adicionales
+
+*[Visualizaciones complementarias]*
+
+## Anexo D: Tests Estadísticos Detallados
+
+*[Resultados completos de tests estadísticos]*
+
+
