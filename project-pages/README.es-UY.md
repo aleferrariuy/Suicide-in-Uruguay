@@ -1,10 +1,10 @@
-# Suicide-in-Uruguay
+# Suicidio-en-Uruguay
 
-Data analysis project seeking a hypothesis for the increase in Uruguay's suicide rate.
+Proyecto de análisis de datos que busca una hipótesis sobre el aumento de la tasa de suicidio en Uruguay.
 
 ![](/images/uruguay-suicidio-afdatauy.png "Epidemia de suicidio en Uruguay")
 
-📢 Not in English? Here in [Spanish](/project-pages/README.es-UY.md "Versión traducida de este documento, llamada README.es-UY.md").
+📢 No en Español? Aquí en [Inglés](../README.md "Translated version of this document, called Readme.md. The 'original' readme file.").
 
 ![](/images/icons8-proyecto-r-48.png "Lenguaje R")   ![](/images/icons8-python-48.png "Lenguaje Python")![](/images/icons8-sql-48.png "Lenguaje SQL")
 
