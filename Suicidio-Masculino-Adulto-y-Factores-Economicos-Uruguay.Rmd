@@ -74,7 +74,7 @@ library(corrplot)       # Matrices de correlación
 library(psych)          # Análisis psicométrico
 library(forecast)       # Series temporales
 library(tseries)        # Análisis de series temporales
-library(bcp)            # Detección de cambios estructurales
+# library(bcp)            # Detección de cambios estructurales
 library(changepoint)    # Análisis de puntos de cambio
 library(readxl)         # Lectura de archivos Excel
 library(janitor)        # Limpieza de datos
