@@ -8,9 +8,9 @@ Data analysis projects seeking a hypothesis for the increase in Uruguay's suicid
 
 Análisis exploratorio proporciona una evidencia inicial robusta de un comportamiento similar entre la tendencia de crecimiento del suicidio y el homicidio durante el período 2014-2024. Se establece una relación sostenida de superioridad entre el número de suicidios y el de homicidios. Durante la mayor parte de los años del periodo, dicha relación correspondería a valores superiores al doble de suicidios en relación a los homicidios. Los hallazgos justifican plenamente la realización de investigaciones más detalladas para comprender mejor esta relación y guiar el desarrollo de políticas públicas efectivas para la prevención del suicidio y el homicidio ya que no se pudo demostrar que entre ellos exista una correlación positiva fuerte.
 
-[![](/images/portada1.png "Suicidios vs Homicidios en Uruguay")](https://github.com/aleferrariuy/Suicide-in-Uruguay/blob/main/Suicidio-Homicidio-Uruguay-2014-2024/suicidios_homicidios_uruguay.pdf)
+[![](/images/portada1.png "Suicidios vs Homicidios en Uruguay")](https://github.com/aleferrariuy/Suicide-in-Uruguay/blob/main/Suicidio-Homicidio-Uruguay-%202014-2024/suicidios_homicidios_uruguay.pdf)
 
-📑 Acceso al documento [aquí](https://github.com/aleferrariuy/Suicide-in-Uruguay/blob/main/Suicidio-Homicidio-Uruguay-2014-2024/suicidios_homicidios_uruguay.pdf) en formato PDF.
+📑 Acceso al documento [aquí](https://github.com/aleferrariuy/Suicide-in-Uruguay/blob/main/Suicidio-Homicidio-Uruguay-%202014-2024/suicidios_homicidios_uruguay.pdf) en formato PDF.
 
 ## Suicidio Masculino Adulto y Factores Económicos en Uruguay del 2004 al 2024
 
